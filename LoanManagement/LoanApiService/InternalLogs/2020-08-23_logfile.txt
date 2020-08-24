@@ -1,0 +1,31 @@
+2020-08-23 00:45:01.5641 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 00:45:01.7533 INFO Hosting environment: Development
+2020-08-23 00:45:01.7972 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 01:44:23.3537 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 01:44:23.5214 INFO Hosting environment: Development
+2020-08-23 01:44:23.5657 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 01:50:50.6500 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 01:50:50.8652 INFO Hosting environment: Development
+2020-08-23 01:50:51.0245 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 10:42:43.5470 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 10:42:43.7028 INFO Hosting environment: Development
+2020-08-23 10:42:43.7426 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 10:47:20.3213 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 10:47:20.5142 INFO Hosting environment: Development
+2020-08-23 10:47:20.5643 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 11:43:36.5387 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 11:43:36.6988 INFO Hosting environment: Development
+2020-08-23 11:43:36.7726 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 11:48:12.7579 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 11:48:12.9127 INFO Hosting environment: Development
+2020-08-23 11:48:12.9637 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 12:18:48.1764 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 12:18:48.3616 INFO Hosting environment: Development
+2020-08-23 12:18:48.4498 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 12:25:36.5700 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 12:25:36.7306 INFO Hosting environment: Development
+2020-08-23 12:25:36.7709 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
+2020-08-23 16:33:16.9296 ERROR Unable to cast object of type 'Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[<>f__AnonymousType4`4[System.Decimal,System.Int32,System.String,System.String]]' to type 'System.Collections.Generic.List`1[LoanManagementService.Model.Loan]'.
+2020-08-23 22:28:57.0315 INFO Application started. Press Ctrl+C to shut down.
+2020-08-23 22:28:57.1898 INFO Hosting environment: Development
+2020-08-23 22:28:57.2364 INFO Content root path: D:\LoanApp\LoanManagement\LoanApiService
