@@ -56,8 +56,10 @@ namespace LoanManagementService.Controllers
        
         [HttpPost]
         [Route("AddLoan")]
-       // [Authorize(Roles = "Admin")]
-        public IActionResult AddLoan([FromBody] Loan loan)
+        // [Authorize(Roles = "Admin")]
+        public IActionResult AddLoan([Bind(nameof(Loan.LoanNumber),nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),
+            nameof(Loan.LoanType),nameof(Loan.LoanAmount),nameof(Loan.BorrowerInformation.BorrowerName),
+            nameof(Loan.PropertyInfomation.AddressLine1),nameof(Loan.PropertyInfomation.AddressLine2),nameof(Loan.PropertyInfomation.City),nameof(Loan.PropertyInfomation.ZipCode))][FromBody] Loan loan)
         {
             try
             {
@@ -85,7 +87,7 @@ namespace LoanManagementService.Controllers
         [HttpPut]
         [Route("UpdateLoan/{id}")]
        // [Authorize(Roles = "Admin")]
-        public IActionResult UpdateLoan(int id, [FromBody] Loan loan)
+        public IActionResult UpdateLoan([Bind(nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),nameof(Loan.LoanType), nameof(Loan.Id))] int id, [FromBody] Loan loan)
         {
             try
             {
