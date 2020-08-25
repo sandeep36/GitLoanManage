@@ -16,10 +16,10 @@ using System.Net;
 
 namespace LoanApiService.Controllers
 {
-    [Route("api/[controller]")]
+   
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/{v:apiVersion}/UserLogin")]
+    [Route("api/v{version:apiVersion}/UserLogin")]
     public class UserLoginController : ControllerBase
     {
         private readonly ILoggerManager _logger;

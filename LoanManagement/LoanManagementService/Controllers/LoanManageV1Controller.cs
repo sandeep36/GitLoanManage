@@ -12,10 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LoanManagementService.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
     [ApiVersion("2.0")]
-    [Route("api/{v:apiVersion}/Loanmanagement")]
+    [Route("api/v{version:apiVersion}/LoanManageV1Controller")]
     public class LoanManageV1Controller : ControllerBase
     {
         private ILoanService _loanService;

@@ -16,10 +16,9 @@ using System.Net;
 
 namespace LoanUserService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     [ApiVersion("2.0")]
-    [Route("api/{v:apiVersion}/UserLogin")]
+    [Route("api/v{version:apiVersion}/UserLoginV1")]
     public class UserLoginV1Controller : ControllerBase
     {
         private readonly ILoggerManager _logger;
