@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/api/UserLogin",
+      "DownstreamPathTemplate": "/api/v1.0/UserLogin/Login",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -9,11 +9,11 @@
           "Port": 44346
         }
       ],
-      "UpstreamPathTemplate": "/userloginservice",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/Loginservice",
+      "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "api/LoanManage",
+      "DownstreamPathTemplate": "/api/v1.0/LoanManage/SearchLoan",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -21,10 +21,15 @@
           "Port": 44341
         }
       ],
-      "UpstreamPathTemplate": "/api/loanmanageservice",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/loanmanageservice",
+      "UpstreamHttpMethod": [ "POST" ]
     }
-  ]
+   
+    
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:44333"
+  }
 }
 
 

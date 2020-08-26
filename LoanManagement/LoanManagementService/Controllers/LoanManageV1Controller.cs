@@ -15,7 +15,7 @@ namespace LoanManagementService.Controllers
     
     [ApiController]
     [ApiVersion("2.0")]
-    [Route("api/v{version:apiVersion}/LoanManageV1Controller")]
+    [Route("api/v2.0/LoanManageV1Controller")]
     public class LoanManageV1Controller : ControllerBase
     {
         private ILoanService _loanService;

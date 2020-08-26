@@ -18,7 +18,7 @@ namespace LoanUserService.Controllers
 {
     [ApiController]
     [ApiVersion("2.0")]
-    [Route("api/v{version:apiVersion}/UserLoginV1")]
+    [Route("api/v2.0/UserLoginV1")]
     public class UserLoginV1Controller : ControllerBase
     {
         private readonly ILoggerManager _logger;

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LoanManagementService.Controllers
 {
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/LoanManage")]
+    [Route("api/v1.0/LoanManage")]
     [ApiController]
     public class LoanManageController : ControllerBase
     {
