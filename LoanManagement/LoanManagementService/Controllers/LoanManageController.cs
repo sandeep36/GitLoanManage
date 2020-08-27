@@ -55,7 +55,7 @@ namespace LoanManagementService.Controllers
        
         [HttpPost]
         [Route("AddLoan")]
-        // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public IActionResult AddLoan([Bind(nameof(Loan.LoanNumber),nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),
             nameof(Loan.LoanType),nameof(Loan.LoanAmount),nameof(Loan.BorrowerInformation.BorrowerName),
             nameof(Loan.PropertyInfomation.AddressLine1),nameof(Loan.PropertyInfomation.AddressLine2),nameof(Loan.PropertyInfomation.City),nameof(Loan.PropertyInfomation.ZipCode))][FromBody] Loan loan)
@@ -77,7 +77,7 @@ namespace LoanManagementService.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.Message);
+                 _logger.Error(ex.Message);
                  return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
            

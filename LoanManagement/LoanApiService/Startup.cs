@@ -18,6 +18,9 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LoanApiService
 {
@@ -40,7 +43,21 @@ namespace LoanApiService
             });
             
             services.AddControllers();//add cors package
-
+                                      // configure strongly typed settings objects
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = Configuration["Jwt:Issuer"],
+            ValidAudience = Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+        };
+    });
             //for api versioning
             services.AddApiVersioning(x =>
             {
@@ -88,6 +105,7 @@ namespace LoanApiService
             app.UseRouting();
 
             app.UseAuthorization(); 
+
             app.UseCors(options =>
  options.AllowAnyOrigin()
  .AllowAnyMethod()

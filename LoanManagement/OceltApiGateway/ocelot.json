@@ -13,7 +13,7 @@
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/v1.0/LoanManage/SearchLoan",
+      "DownstreamPathTemplate": "/api/v1.0/LoanManage",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -23,7 +23,20 @@
       ],
       "UpstreamPathTemplate": "/loanmanageservice",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1.0/LoanManage/AddLoan",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44341
+        }
+      ],
+      "UpstreamPathTemplate": "/loanmanageserviceAddLoan",
+      "UpstreamHttpMethod": [ "POST" ]
     }
+   
    
     
   ],

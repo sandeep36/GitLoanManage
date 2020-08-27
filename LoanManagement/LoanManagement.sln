@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoanManagementService", "Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OceltApiGateway", "OceltApiGateway\OceltApiGateway.csproj", "{1B3B4A7B-8FA5-4CE8-BA9F-B0DD7BE1C074}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-tests", "web-api-tests\web-api-tests.csproj", "{DDE1374A-732E-4C79-A0CC-B55FCDEA6914}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1B3B4A7B-8FA5-4CE8-BA9F-B0DD7BE1C074}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B3B4A7B-8FA5-4CE8-BA9F-B0DD7BE1C074}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B3B4A7B-8FA5-4CE8-BA9F-B0DD7BE1C074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE1374A-732E-4C79-A0CC-B55FCDEA6914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE1374A-732E-4C79-A0CC-B55FCDEA6914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE1374A-732E-4C79-A0CC-B55FCDEA6914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE1374A-732E-4C79-A0CC-B55FCDEA6914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
