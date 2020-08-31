@@ -12,6 +12,7 @@ using Moq;
 using LoanManagementService.Controllers;
 using Microsoft.IdentityModel.Tokens;
 using LoanApiService.Repository;
+using Microsoft.Extensions.Configuration;
 
 namespace web_api_tests
 {
@@ -19,14 +20,18 @@ namespace web_api_tests
     class LoanManageTest
     {
         #region Variables
-        IUserService _userService;
-        
-        
+       /* IUserService _userService;
+        ILoanDataRepository<Loan> loanService;
+        ILoanService _loanservice;
+        IConfiguration configuration;
+        List<Loan> _loan;
+*/
+
         #endregion
         [SetUp]
         public void Setup()
         {
-          //  _userService = new IUserService();
+           
             
         }
 
@@ -35,5 +40,20 @@ namespace web_api_tests
         {
            // var service = new LoanService();
         }
+       /* public ILoanService SetupLoanServiceRepository()
+        {
+           *//* // Init repository
+            var repo = new Mock<ILoanService>();
+            string borrowerName;
+            int loanTerm;
+            decimal loanAmount;
+            // Setup mocking behavior
+            repo.Setup(r => r.GetLoanInfo(It.IsAny<string>),It.IsAny<int>(),It.IsAny<decimal>).Returns();
+*//*
+            
+            // Return mock implementation
+          //  return repo.Object;
+        }
+*/
     }
 }

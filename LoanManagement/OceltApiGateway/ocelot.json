@@ -22,7 +22,11 @@
         }
       ],
       "UpstreamPathTemplate": "/loanmanageservice",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/v1.0/LoanManage/AddLoan",
@@ -35,6 +39,20 @@
       ],
       "UpstreamPathTemplate": "/loanmanageserviceAddLoan",
       "UpstreamHttpMethod": [ "POST" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1.0/LoanManage/UpdateLoan/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44341
+        }
+      ],
+      "UpstreamPathTemplate": "/loanmanageserviceUpdateLoan/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+
     }
    
    

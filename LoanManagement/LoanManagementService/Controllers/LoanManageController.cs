@@ -15,6 +15,7 @@ namespace LoanManagementService.Controllers
     [ApiVersion("1.0")]
     [Route("api/v1.0/LoanManage")]
     [ApiController]
+    [Authorize]
     public class LoanManageController : ControllerBase
     {
         private ILoanService _loanService;
@@ -31,6 +32,7 @@ namespace LoanManagementService.Controllers
         [Route("SearchLoan")]
         [HttpPost]
        // [Authorize(Roles = "User")]
+       [Authorize]
         public IActionResult SearchLoan(string borrowerName,int loanTerm,decimal loanAmount)
         {
             try
@@ -55,7 +57,7 @@ namespace LoanManagementService.Controllers
        
         [HttpPost]
         [Route("AddLoan")]
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles ="User")]
         public IActionResult AddLoan([Bind(nameof(Loan.LoanNumber),nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),
             nameof(Loan.LoanType),nameof(Loan.LoanAmount),nameof(Loan.BorrowerInformation.BorrowerName),
             nameof(Loan.PropertyInfomation.AddressLine1),nameof(Loan.PropertyInfomation.AddressLine2),nameof(Loan.PropertyInfomation.City),nameof(Loan.PropertyInfomation.ZipCode))][FromBody] Loan loan)
@@ -85,7 +87,7 @@ namespace LoanManagementService.Controllers
 
         [HttpPut]
         [Route("UpdateLoan/{id}")]
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateLoan([Bind(nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),nameof(Loan.LoanType), nameof(Loan.Id))] int id, [FromBody] Loan loan)
         {
             try

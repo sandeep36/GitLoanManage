@@ -19,7 +19,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLog;
-
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LoanManagementService
 {
@@ -40,9 +43,34 @@ namespace LoanManagementService
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ILoanService, LoanService>();
-            /*  services.AddScoped<ILoanDataRepository<Loan,LoanDto>,LoanDataManager>();*/
             services.AddScoped<ILoanDataRepository<Loan>, LoanDataManager>();
             services.AddSingleton<ILoggerService, LogService>();
+
+            var audienceConfig = Configuration.GetSection("Audience");
+
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = true,
+                ValidIssuer = audienceConfig["Iss"],
+                ValidateAudience = true,
+                ValidAudience = audienceConfig["Aud"],
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
+                RequireExpirationTime = true,
+            };
+
+            services.AddAuthentication(o =>
+            {
+                o.DefaultAuthenticateScheme = "TestKey";
+            })
+            .AddJwtBearer("TestKey", x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.TokenValidationParameters = tokenValidationParameters;
+            });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -68,6 +96,7 @@ namespace LoanManagementService
             });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,8 +119,12 @@ namespace LoanManagementService
             });
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors(options =>
+            options.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

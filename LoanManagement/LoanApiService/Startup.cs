@@ -42,46 +42,48 @@ namespace LoanApiService
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             
-            services.AddControllers();//add cors package
-                                      // configure strongly typed settings objects
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = Configuration["Jwt:Issuer"],
-            ValidAudience = Configuration["Jwt:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-        };
-    });
+            services.AddControllers();
+            services.AddOptions();
+            services.Configure<Audience>(Configuration.GetSection("Audience"));
+            // configure strongly typed settings objects
+            /* services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                         .AddJwtBearer(options =>
+                         {
+                             options.TokenValidationParameters = new TokenValidationParameters
+                             {
+                                 ValidateIssuer = true,
+                                 ValidateAudience = true,
+                                 ValidateLifetime = true,
+                                 ValidateIssuerSigningKey = true,
+                                 ValidIssuer = Configuration["Jwt:Issuer"],
+                                 ValidAudience = Configuration["Jwt:Issuer"],
+                                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                             };
+                         });*/
             //for api versioning
             services.AddApiVersioning(x =>
-            {
-                x.DefaultApiVersion = new ApiVersion(1, 0);
-                x.AssumeDefaultVersionWhenUnspecified = true;
-                x.ReportApiVersions = true;
-            });
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "UserService API",
-                    Description = "ASP.NET Core Web API",
+                            {
+                                x.DefaultApiVersion = new ApiVersion(1, 0);
+                                x.AssumeDefaultVersionWhenUnspecified = true;
+                                x.ReportApiVersions = true;
+                            });
+                        // Register the Swagger generator, defining 1 or more Swagger documents
+                        services.AddSwaggerGen(c =>
+                        {
+                            c.SwaggerDoc("v1", new OpenApiInfo
+                            {
+                                Version = "v1",
+                                Title = "UserService API",
+                                Description = "ASP.NET Core Web API",
                    
-                });
-            });
-            services.AddCors();
-            services.AddScoped<IUserService, UserService>();
-            services.AddSingleton<ILoggerManager, LoggerManager>();
+                            });
+                        });
+                        services.AddCors();
+                        services.AddScoped<IUserService, UserService>();
+                        services.AddSingleton<ILoggerManager, LoggerManager>();
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+                        // Register the Swagger generator, defining 1 or more Swagger documents
+                        services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,12 +106,15 @@ namespace LoanApiService
             });
             app.UseRouting();
 
-            app.UseAuthorization(); 
-
             app.UseCors(options =>
- options.AllowAnyOrigin()
- .AllowAnyMethod()
- .AllowAnyHeader());
+             options.AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

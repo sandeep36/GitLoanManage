@@ -1,11 +1,14 @@
 ﻿using LoanApiService.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LoanApiService.Repository
@@ -14,12 +17,14 @@ namespace LoanApiService.Repository
     {
         private readonly UserDatabaseContext _dbcontext;
         private IConfiguration _config;
-        // DataDto datadto=new DataDto(_dbcontext);
+        private IOptions<Audience> _settings;
+        
 
-        public UserService(UserDatabaseContext context, IConfiguration config)
+        public UserService(UserDatabaseContext context, IConfiguration config, IOptions<Audience> settings)
         {
             _dbcontext = context;
             _config = config;
+            this._settings = settings;
         }
         public User AuthenticateUser(User userathenticate)
         {
@@ -45,8 +50,7 @@ namespace LoanApiService.Repository
                 userinfo.Email = userInfo.Email;
                 userinfo.UserRole = userRole;
             }
-            //Validate the User Credentials 
-            //  var userValidate = _dbcontext.Users.Where(user => user.Email.Equals(userlogin.Email) && user.Password.Equals(userlogin.Password)).FirstOrDefault();
+           
 
             // return null if user not found
             if (userinfo == null)
@@ -57,22 +61,52 @@ namespace LoanApiService.Repository
 
         public string GenerateJSONWebToken(User usertoken)
         {
-            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
+           // var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+           // var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var now = DateTime.UtcNow;
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub, usertoken.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, usertoken.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role,usertoken.UserRole.RoleName)
               };
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-            _config["Jwt:Issuer"],
-            claims,
-            expires: DateTime.Now.AddMinutes(120),
-            signingCredentials: credentials);
+            /* var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+             _config["Jwt:Issuer"],
+             claims,
+             expires: DateTime.Now.AddMinutes(120),
+             signingCredentials: credentials);*/
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_settings.Value.Secret));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = true,
+                ValidIssuer = _settings.Value.Iss,
+                ValidateAudience = true,
+                ValidAudience = _settings.Value.Aud,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
+                RequireExpirationTime = true,
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            };
+            var jwt = new JwtSecurityToken(
+                   issuer: _settings.Value.Iss,
+                   audience: _settings.Value.Aud,
+                   claims: claims,
+                   notBefore: now,
+                   expires: now.Add(TimeSpan.FromMinutes(2)),
+                   signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
+               );
+          //  var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+           
+             return new JwtSecurityTokenHandler().WriteToken(jwt);
+            
         }
+    }
+    public class Audience
+    {
+        public string Secret { get; set; }
+        public string Iss { get; set; }
+        public string Aud { get; set; }
     }
 }
