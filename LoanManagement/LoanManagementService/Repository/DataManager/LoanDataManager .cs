@@ -62,7 +62,7 @@ namespace LoanManagementService.Repository.DataManager
             
             entityToUpdate.LoanAmount = entity.LoanAmount;
             entityToUpdate.LoanType = entity.LoanType;
-            entityToUpdate.LoanTerm = entity.LoanTerm;
+            entityToUpdate.LoanNumber = entity.LoanNumber;
            
            _dbcontext.Update(entityToUpdate).State = EntityState.Modified;
            _dbcontext.SaveChanges();

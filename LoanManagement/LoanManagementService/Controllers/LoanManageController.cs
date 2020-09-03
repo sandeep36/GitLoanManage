@@ -31,13 +31,13 @@ namespace LoanManagementService.Controllers
 
         [Route("SearchLoan")]
         [HttpPost]
-       // [Authorize(Roles = "User")]
-       [Authorize]
-        public IActionResult SearchLoan(string borrowerName,int loanTerm,decimal loanAmount)
+        [Authorize(Roles = "User,Admin")]
+       //[Authorize]
+        public IActionResult SearchLoan([FromBody] SearchInfo searchinfo)
         {
             try
             {
-                var result = _loanService.GetLoanInfo(borrowerName, loanTerm, loanAmount);
+                var result = _loanService.GetLoanInfo(searchinfo);
                 if (result.Count == 0)
                 {
                     return NotFound("data not found!");
@@ -57,7 +57,7 @@ namespace LoanManagementService.Controllers
        
         [HttpPost]
         [Route("AddLoan")]
-        [Authorize(Roles ="User")]
+        [Authorize(Roles ="Admin")]
         public IActionResult AddLoan([Bind(nameof(Loan.LoanNumber),nameof(Loan.LoanAmount),nameof(Loan.LoanTerm),
             nameof(Loan.LoanType),nameof(Loan.LoanAmount),nameof(Loan.BorrowerInformation.BorrowerName),
             nameof(Loan.PropertyInfomation.AddressLine1),nameof(Loan.PropertyInfomation.AddressLine2),nameof(Loan.PropertyInfomation.City),nameof(Loan.PropertyInfomation.ZipCode))][FromBody] Loan loan)

@@ -46,7 +46,7 @@ namespace LoanApiService.Controllers
                 {
                     // authentication successful so generate jwt token
                     var tokenString = _userService.GenerateJSONWebToken(userAuthenticate);
-                    response = Ok(new { token = tokenString });
+                    response = Ok(new { token = tokenString,Role=userAuthenticate.UserRole.RoleName });
                 }
                 return response;
             }

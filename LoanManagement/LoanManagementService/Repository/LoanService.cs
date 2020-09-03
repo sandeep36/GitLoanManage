@@ -32,7 +32,7 @@ namespace LoanManagementService.Repository
             return borrowrs.ToList();
         }
 
-        public List<Loan> GetLoanInfo(string borrowerName, int loanTerm, decimal loanAmount)
+        public List<Loan> GetLoanInfo(SearchInfo searchInfo)
         {
             IQueryable<Loan> query = _dbcontext.Loans;
             
@@ -40,21 +40,28 @@ namespace LoanManagementService.Repository
             var borrowersName = new BorrowerInformation();
             try
             {
-                if (!string.IsNullOrWhiteSpace(borrowerName))
+                if (!string.IsNullOrWhiteSpace(searchInfo.BorrowerName))
                 {
-                    var borrowers = this.GetBorrowersByName(borrowerName);
-                    foreach (var borrower in borrowers)
+                    var borrowers = this.GetBorrowersByName(searchInfo.BorrowerName);
+                    var borrowersId = borrowers.Select(x => x.Id).ToArray();
+                    query = query.Where(x => borrowersId.Contains(x.BorrowerInformation.Id));
+                   /* foreach (var borrower in borrowers)
                     {
-                         query = query.Where(x => x.BorrowerInformation.Id == borrower.Id);
-                                             
-                    }
+                        // query = query.Where(x => x.BorrowerInformation.Id == borrower.Id);
+
+                           
+                    }*/
                 }
-                if (loanTerm > 0)
+                if (!String.IsNullOrEmpty(searchInfo.LoanNumber))
                 {
-                    query = query.Where(x => x.LoanTerm == loanTerm);
+                    int loanNumber = String.IsNullOrEmpty(searchInfo.LoanNumber)? 0: int.Parse(searchInfo.LoanNumber);
+                    if(loanNumber > 0)
+                    query = query.Where(x => x.LoanNumber == loanNumber);
                 }
-                if (loanAmount > 0)
+                if (!String.IsNullOrEmpty(searchInfo.LoanAmount))
                 {
+                    decimal loanAmount =String.IsNullOrEmpty(searchInfo.LoanAmount) ? 0: decimal.Parse(searchInfo.LoanAmount);
+                    if(loanAmount > 0)
                     query = query.Where(x => x.LoanAmount == loanAmount);
                 }
                
@@ -68,10 +75,10 @@ namespace LoanManagementService.Repository
                 
                 return query.ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                 throw;
 
             }
         }

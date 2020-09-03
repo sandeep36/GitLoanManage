@@ -8,7 +8,7 @@ namespace LoanManagementService.Repository
 {
    public interface ILoanService
     {
-        List<Loan> GetLoanInfo(string borrowerName, int loanTerm, decimal loanAmount);
+        List<Loan> GetLoanInfo(SearchInfo searchInfo);
         List<BorrowerInformation> GetBorrowersByName(string borrowerName);
     }
 

@@ -32,7 +32,7 @@ namespace LoanManagementService.Controllers
         [Route("SearchLoan")]
         [HttpPost]
         // [Authorize(Roles = "User")]
-        public IActionResult SearchLoan(string borrowerName, int loanTerm, decimal loanAmount)
+       /* public IActionResult SearchLoan(string borrowerName, int loanTerm, decimal loanAmount)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace LoanManagementService.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
 
-        }
+        }*/
 
         [HttpPost]
         [Route("AddLoan")]
